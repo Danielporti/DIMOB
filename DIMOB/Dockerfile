@@ -15,4 +15,5 @@ WORKDIR /var/www/html/
 RUN chown -R www-data:www-data /var/www/html/
 
 EXPOSE 80
-CMD ["apache2-foreground"]
+# Use apache2ctl com caminho absoluto para evitar 'command not found' em alguns ambientes
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
