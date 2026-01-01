@@ -1,0 +1,97 @@
+/* Reset e estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Navegação */
+nav {
+    background-color: #444;
+    padding: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Seções */
+section {
+    background-color: white;
+    margin: 2rem 0;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.container h1.home_title {
+    color: #6E44FF !important;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #6E44FF !important;
+    border-color: #6E44FF !important;
+}
+
+.btn-primary:hover {
+    background-color: #3b2c78 !important;
+    border-color: #3b2c78 !important;
+}
+
+.home_subtitle {
+    color: #3b2c78 !important;
+    font-size: 1.2rem !important;
+    margin-top: 0.5rem !important;
+}
+
+.navbar-brand {
+    color: #6E44FF !important;
+    font-weight: bold;
+}
+
+.rubik-DIMOB-title {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
