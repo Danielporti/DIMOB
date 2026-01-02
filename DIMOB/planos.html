@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos de Assinatura</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; }
+        .container { max-width: 900px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #2c3e50; }
+        .plans { display: flex; gap: 32px; justify-content: center; margin-top: 40px; }
+        .plan { flex: 1; background: #f1f1f1; border-radius: 10px; padding: 32px 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
+        .plan:hover { transform: translateY(-6px) scale(1.03); }
+        .plan-title { font-size: 1.5em; color: #2980b9; margin-bottom: 12px; }
+        .plan-price { font-size: 2.2em; color: #27ae60; margin-bottom: 18px; }
+        .plan-features { list-style: none; padding: 0; margin-bottom: 24px; }
+        .plan-features li { margin: 10px 0; color: #555; }
+        .plan-btn { background: #2980b9; color: #fff; border: none; border-radius: 6px; padding: 14px 32px; font-size: 1.1em; cursor: pointer; transition: background 0.2s; }
+        .plan-btn:hover { background: #1a5a85; }
+        @media (max-width: 700px) { .plans { flex-direction: column; gap: 20px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Escolha seu Plano de Assinatura</h1>
+        <div class="plans">
+            <div class="plan">
+                <div class="plan-title">Básico</div>
+                <div class="plan-price">R$49,99 <span style="font-size:0.6em;">/mês</span></div>
+                <ul class="plan-features">
+                    <li>Acesso ao catálogo de imóveis</li>
+                    <li>Suporte básico</li>
+                </ul>
+                <button class="plan-btn" onclick="alert('Integração de pagamento em breve!')">Assinar Básico</button>
+                            <button class="plan-btn" onclick="assinarPlano('basico')">Assinar Básico</button>
+            </div>
+            <div class="plan">
+                <div class="plan-title">Imobiliária</div>
+                <div class="plan-price">R$149,00 <span style="font-size:0.6em;">/mês</span></div>
+                <ul class="plan-features">
+                    <li>Todos os catálogos do plano Básico</li>
+                    <li>Catálogo geral da Imobi</li>
+                    <li>Suporte prioritário</li>
+                </ul>
+                <button class="plan-btn" onclick="alert('Integração de pagamento em breve!')">Assinar Imobiliária</button>
+                            <button class="plan-btn" onclick="assinarPlano('imobiliaria')">Assinar Imobiliária</button>
+                <script>
+                async function assinarPlano(plano) {
+                    try {
+                        const response = await fetch('../backend/mercadopago_checkout.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ plano })
+                        });
+                        const data = await response.json();
+                        if (data && data.init_point) {
+                            window.location.href = data.init_point;
+                        } else {
+                            alert('Erro ao iniciar pagamento.');
+                        }
+                    } catch (e) {
+                        alert('Erro ao conectar com o servidor.');
+                    }
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
