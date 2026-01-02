@@ -9,7 +9,7 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
 
 /* Header */
@@ -44,13 +44,13 @@ nav a:hover {
     padding: 2rem;
 }
 
-/* Seções */
+/* Seções: aparência neutra para ficar contínua com o fundo */
 section {
-    background-color: white;
-    margin: 2rem 0;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* Footer */
@@ -95,3 +95,173 @@ footer {
     font-weight: 700;
     font-style: normal;
 }
+
+/* Estilos para as seções de apresentação */
+.section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(31, 41, 55, 0.06);
+    padding: 1.25rem;
+}
+.presentation-img {
+    max-height: 420px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.home_title {
+    margin-top: 0.5rem;
+    font-size: 2rem;
+}
+.home_subtitle {
+    font-size: 1.05rem;
+    margin-top: 0.5rem;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 767.98px) {
+    .home_title { font-size: 1.6rem; }
+    .presentation-img { max-height: 260px; }
+}
+
+/* Background sections full-height */
+
+.bg-section {
+    min-height: 100vh;
+    background-color: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.bg-1 { background-color: transparent; }
+.bg-2 { background-color: transparent; }
+
+.bg-section .container { position: relative; z-index: 1; }
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Button contrast */
+.btn-light { background: rgba(255,255,255,0.95); color: #333; }
+.btn-light:hover { background: rgba(255,255,255,1); }
+
+/* Sombra discreta entre header (navbar) e conteúdo */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1030;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    transform: translateY(0);
+    transition: transform 280ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Espaço reservador para o header (ajustado via JS também) */
+:root { --header-height: 72px; }
+body { padding-top: var(--header-height); }
+
+/* Compact header: show only brand and toggler (hamburger) */
+.navbar {
+    transition: height 220ms ease, padding 220ms ease, box-shadow 220ms ease;
+}
+.navbar .navbar-nav { transition: opacity 220ms ease, transform 220ms ease; }
+
+/* Make the navbar container a flex row so the toggler can be pushed right */
+.navbar > .container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.navbar.compact {
+    height: 56px;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+}
+.navbar.compact .navbar-nav {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+}
+
+/* Show toggler on compact in desktop; keep visible on mobile */
+.navbar-toggler { display: none; border: none; background: transparent; }
+@media (max-width: 767.98px) {
+    .navbar-toggler { display: block; }
+}
+@media (min-width: 768px) {
+    .navbar.compact .navbar-toggler { display: block; }
+}
+
+/* Position hamburger at the extreme right of the navbar */
+.navbar .navbar-toggler { margin-left: 0; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 1050; }
+
+/* Remove default border and use an SVG that follows `currentColor` so we can change color on hover */
+.navbar-toggler { padding: 0.4rem 0.6rem; border-radius: 6px; }
+.navbar-toggler:focus { outline: none; box-shadow: none; }
+.navbar-toggler .navbar-toggler-icon {
+    /* SVG with explicit stroke color (#6E44FF) encoded */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='%236E44FF' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+    background-size: 1.2rem 1.2rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Hover: change background to primary darker shade */
+.navbar-toggler:hover {
+    background-color: rgba(110,68,255,0.12);
+}
+.navbar-toggler:hover .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='%233b2c78' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+/* When compact, make toggler more visible on desktop */
+.navbar.compact .navbar-toggler { background: transparent; }
+
+/* Ensure brand remains visible */
+.navbar .navbar-brand { z-index: 1040; }
+
+/* Fix brand at extreme left */
+.navbar .navbar-brand {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 767.98px) {
+    .navbar .navbar-brand { left: 0.75rem; }
+    .navbar .navbar-toggler { right: 0.75rem; }
+}
+
+/* Social login buttons */
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-google {
+    background: #fff;
+    color: #202124;
+    border: 1px solid #ddd;
+}
+.btn-google:hover { background: #f7f7f7; }
+.btn-apple {
+    background: #111;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.btn-apple:hover { background: #000; }
+.btn-facebook {
+    background: #1877F2;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+.btn-facebook:hover { background: #165fcb; }

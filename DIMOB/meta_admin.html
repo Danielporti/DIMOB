@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meta Admin - DIMOB</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+  <style>
+    .placeholder-card { min-height: 160px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">DIMOB</a>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <h2>Área de Integração Meta</h2>
+    <p>Conecte sua conta Meta (Facebook/Instagram/WhatsApp) para gerenciar mensagens e anúncios.</p>
+
+    <div class="mb-4">
+      <a id="btn-connect" class="btn btn-primary" href="../backend/meta_connect.php">Conectar Meta</a>
+      <span id="status" class="ms-3 text-muted">Verificando status...</span>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card placeholder-card p-3">
+          <h5>Mensagens (WhatsApp / Instagram / Facebook)</h5>
+          <p class="text-muted">Aqui aparecerão conversas e mensagens recebidas. (integração futura)</p>
+          <button id="load-messages" class="btn btn-outline-secondary">Carregar mensagens</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card placeholder-card p-3">
+          <h5>Gerenciamento de Anúncios (Meta Ads)</h5>
+          <p class="text-muted">Crie, visualize e pause campanhas. (integração futura)</p>
+          <button id="open-ads" class="btn btn-outline-secondary">Ir para anúncios</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function checkStatus(){
+      try{
+        const res = await fetch('../backend/meta_status.php');
+        const json = await res.json();
+        const s = document.getElementById('status');
+        if(json.connected){
+          s.textContent = 'Conectado';
+          s.classList.remove('text-muted');
+          s.classList.add('text-success');
+        } else {
+          s.textContent = 'Não conectado';
+          s.classList.remove('text-success');
+          s.classList.add('text-muted');
+        }
+      }catch(err){
+        console.error(err);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', checkStatus);
+  </script>
+</body>
+</html>
