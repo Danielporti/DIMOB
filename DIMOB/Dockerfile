@@ -7,6 +7,10 @@ RUN apt-get update && \
     a2enmod rewrite && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Configura o nome do servidor
+RUN echo 'ServerName localhost' > /etc/apache2/conf-available/servername.conf \
+ && a2enconf servername
+
 # Copia o projeto para o diretório público do Apache
 COPY . /var/www/html/
 WORKDIR /var/www/html/
@@ -15,5 +19,5 @@ WORKDIR /var/www/html/
 RUN chown -R www-data:www-data /var/www/html/
 
 EXPOSE 80
-# Use apache2ctl com caminho absoluto para evitar 'command not found' em alguns ambientes
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+# Use apache2ctl quando presente; senão, caia para o servidor PHP embutido
+CMD ["sh", "-c", "if [ -x /usr/sbin/apache2ctl ]; then exec /usr/sbin/apache2ctl -D FOREGROUND; else exec php -S 0.0.0.0:${PORT:-80} -t /var/www/html; fi"]
